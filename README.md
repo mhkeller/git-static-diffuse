@@ -27,4 +27,4 @@ Now you can launch the server!
 node node_modules/git-static/examples/server --repositories repositories
 ```
 
-Go to <http://localhost:3000/repository/HEAD/path/to/file.html> to view a file from the source repository. You can replace `HEAD` with a specific commit version, or with short names and aliases for commits such as "0ad4156" or "HEAD~1".
+Go to <http://localhost:3000/repository/HEAD/path/to/file.html> to view a file from the source repository. You can replace `HEAD` with a specific commit version, with short names and aliases for commits such as "0ad4156" or "HEAD~1", or even branch names.
