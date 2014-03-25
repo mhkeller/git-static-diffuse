@@ -5,8 +5,8 @@ var child = require("child_process"),
 var shaRe = /^[0-9a-f]{40}$/,
     emailRe = /^<.*@.*>$/;
 
-function readBlob(repository, revision, file, callback) {
-  var git = child.spawn("git", ["cat-file", "blob", revision + ":" + file], {cwd: repository}),
+function readBlob(repositories, repository, revision, file, callback) {
+  var git = child.spawn("git", ["cat-file", "blob", revision + ":" + file], {cwd: repositories + '/' + repository}),
       data = [],
       exit;
 
@@ -124,21 +124,27 @@ exports.listAllCommits = function(repository, callback) {
 };
 
 exports.route = function() {
-  var repository = defaultRepository,
+  var repositories = defaultRepositories,
+      repository = defaultRepository,
       revision = defaultRevision,
       file = defaultFile,
       type = defaultType;
 
+
   function route(request, response) {
-    var repository_,
+    var repositories_,
+        repository_,
         revision_,
         file_;
 
-    if ((repository_ = repository(request.url)) == null
-        || (revision_ = revision(request.url)) == null
-        || (file_ = file(request.url)) == null) return serveNotFound();
+    if (
+           (repositories_  = repositories(request.url)) == null
+        || (repository_    = repository(request.url))   == null
+        || (revision_      = revision(request.url))     == null
+        || (file_          = file(request.url))         == null
+      )  return serveNotFound();
 
-    readBlob(repository_, revision_, file_, function(error, data) {
+    readBlob(repositories_, repository_, revision_, file_, function(error, data) {
       if (error) return error.code === 128 ? serveNotFound() : serveError(error);
       response.writeHead(200, {
         "Content-Type": type(file_),
@@ -157,6 +163,12 @@ exports.route = function() {
       response.end("File not found.");
     }
   }
+
+  route.repositories = function(_) {
+    if (!arguments.length) return repositories;
+    repositories = functor(_);
+    return route;
+  };
 
   route.repository = function(_) {
     if (!arguments.length) return repository;
@@ -190,16 +202,23 @@ function functor(_) {
   return typeof _ === "function" ? _ : function() { return _; };
 }
 
-function defaultRepository() {
-  return path.join(__dirname, "repository");
+function defaultRepositories() {
+  return path.join(__dirname, "repositories");
+}
+
+function defaultRepository(url) {
+  var dirs = url.substring(url.indexOf('/') + 1).split('/')
+  return decodeURIComponent(dirs[0]);
 }
 
 function defaultRevision(url) {
-  return decodeURIComponent(url.substring(1, url.indexOf("/", 1)));
+  var dirs = url.substring(url.indexOf('/') + 1).split('/')
+  return decodeURIComponent(dirs[1]);
 }
 
 function defaultFile(url) {
-  return decodeURIComponent(url.substring(url.indexOf("/", 1) + 1));
+  var dirs = url.substring(url.indexOf('/') + 1).split('/')
+  return decodeURIComponent(dirs[dirs.length - 1])
 }
 
 function defaultType(file) {

@@ -9,9 +9,9 @@ var argv = optimist.usage("Usage: $0")
       alias: "help",
       describe: "display this help text"
     })
-    .options("repository", {
-      default: ".git",
-      describe: "path to bare git repository"
+    .options("repositories", {
+      default: "repositories",
+      describe: "path to directory of git repositories"
     })
     .options("port", {
       default: 3000,
@@ -19,14 +19,13 @@ var argv = optimist.usage("Usage: $0")
     })
     .check(function(argv) {
       if (argv.help) throw "";
-      try { var stats = fs.statSync(argv.repository); } catch (e) { throw "Error: " + e.message; }
-      if (!stats.isDirectory()) throw "Error: invalid --repository directory.";
+      try { var stats = fs.statSync(argv.repositories); } catch (e) { throw "Error: " + e.message; }
+      if (!stats.isDirectory()) throw "Error: invalid --repositories directory.";
     })
     .argv;
 
 var server = express();
 
-server.get(/^\/.*/, gitstatic.route()
-    .repository(argv.repository));
+server.get(/^\/.*/, gitstatic.route().repositories(argv.repositories) );
 
 server.listen(argv.port);
