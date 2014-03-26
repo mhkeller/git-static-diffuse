@@ -1,13 +1,10 @@
 {
-  "name": "git-static",
+  "name": "git-static-diffuse",
   "version": "0.0.12",
-  "author": {
-    "name": "Mike Bostock",
-    "url": "http://bost.ocks.org/mike"
-  },
+  "author": "Michael Keller",
   "repository": {
     "type": "git",
-    "url": "http://github.com/mbostock/git-static.git"
+    "url": "http://github.com/mhkeller/git-static-diffuse.git"
   },
   "dependencies": {
     "mime": "1.2.x"
