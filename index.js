@@ -218,7 +218,7 @@ function defaultRevision(url) {
 
 function defaultFile(url) {
   var dirs = url.substring(1).split('/');
-  return dirs.slice(2, dirs.length) || undefined;
+  return dirs.slice(2, dirs.length).join('/') || undefined;
 }
 
 function defaultType(file) {
