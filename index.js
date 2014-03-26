@@ -138,11 +138,14 @@ exports.route = function() {
         file_;
 
     if (
-           (repositories_  = repositories(request.url)) == null
-        || (repository_    = repository(request.url))   == null
-        || (revision_      = revision(request.url))     == null
-        || (file_          = file(request.url))         == null
+           (repositories_  = repositories(request.url)) == undefined
+        || (repository_    = repository(request.url))   == undefined
+        || (revision_      = revision(request.url))     == undefined
+        || (file_          = file(request.url))         == undefined
       )  return serveNotFound();
+
+    console.log(request.url)
+    console.log(revision_)
 
     readBlob(repositories_, repository_, revision_, file_, function(error, data) {
       if (error) return error.code === 128 ? serveNotFound() : serveError(error);
@@ -159,6 +162,7 @@ exports.route = function() {
     }
 
     function serveNotFound() {
+      console.log('serving')
       response.writeHead(404, {"Content-Type": "text/plain"});
       response.end("File not found.");
     }
@@ -207,18 +211,18 @@ function defaultRepositories() {
 }
 
 function defaultRepository(url) {
-  var dirs = url.substring(url.indexOf('/') + 1).split('/')
-  return decodeURIComponent(dirs[0]);
+  var dirs = url.substring(1).split('/');
+  return dirs[0] || undefined;
 }
 
 function defaultRevision(url) {
-  var dirs = url.substring(url.indexOf('/') + 1).split('/')
-  return decodeURIComponent(dirs[1]);
+  var dirs = url.substring(1).split('/');
+  return dirs[1] || undefined;
 }
 
 function defaultFile(url) {
-  var dirs = url.substring(url.indexOf('/') + 1).split('/')
-  return decodeURIComponent(dirs[dirs.length - 1])
+  var dirs = url.substring(1).split('/');
+  return dirs[dirs.length - 1] || undefined;
 }
 
 function defaultType(file) {
