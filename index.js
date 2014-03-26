@@ -144,9 +144,6 @@ exports.route = function() {
         || (file_          = file(request.url))         == undefined
       )  return serveNotFound();
 
-    console.log(request.url)
-    console.log(revision_)
-
     readBlob(repositories_, repository_, revision_, file_, function(error, data) {
       if (error) return error.code === 128 ? serveNotFound() : serveError(error);
       response.writeHead(200, {
@@ -162,7 +159,6 @@ exports.route = function() {
     }
 
     function serveNotFound() {
-      console.log('serving')
       response.writeHead(404, {"Content-Type": "text/plain"});
       response.end("File not found.");
     }
