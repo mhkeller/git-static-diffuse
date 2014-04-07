@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	p.page-type Repository
+	h1= repo
+	p Available branches:
+	ul
+		each branch in branches
+			li
+				a(href="/#{repo}/#{branch}")= branch				

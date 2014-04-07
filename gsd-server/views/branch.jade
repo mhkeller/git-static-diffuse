@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	p.page-type Repository-branch
+	h1= repo + ' | ' + branch
+	p Available commits:
+	ul.code
+		li
+			a(href='/#{repo}/HEAD/index.html')= 'HEAD'
+		each commit in commits
+			li
+				a(href="/#{repo}/"+ commit.sha.substring(0,6) + "/index.html")= commit.sha
+				ul
+					li= new Date(commit.date).toLocaleString().replace(/ 20(\d{2})/,', \'$1 -').replace(/GMT-\d{4}.* /,'')
+					li= commit.author

@@ -1,0 +1,9 @@
+extends layout
+
+block content
+	h1 Welcome to Snowy Owl
+	p Here are your repositories:
+	ul
+		each repo in repos
+			li
+				a(href="/#{repo}")= repo
