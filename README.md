@@ -61,7 +61,7 @@ http://localhost:3000/repository-name/branch-name
 
 ## Developing
 
-If you want to keep the server alive while you're configuring, use [nodemon](https://github.com/remy/nodemon) and include the jade files
+If you want to keep the server alive while you're editing it, use [nodemon](https://github.com/remy/nodemon) and include the jade files
 
 ````
 nodemon gsd-server/app.js --repositories repositories -e js,jade,css
