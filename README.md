@@ -58,3 +58,17 @@ View all commits
 ````
 http://localhost:3000/repository-name/branch-name
 ````
+
+## Developing
+
+If you want to keep the server alive while you're configuring, use [nodemon](https://github.com/remy/nodemon) and include the jade files
+
+````
+nodemon gsd-server/app.js --repositories repositories -e js,jade,css
+````
+
+Also watch the [stylus](http://learnboost.github.io/stylus/) files
+
+````
+stylus -w gsd-server/public/stylesheets/
+````
