@@ -1,7 +1,11 @@
 Git Static Diffuse
 ====
 
-Turn a directory of Git repositories into a static file server. This fork differs from the original [git-static](https://github.com/mbostock/git-static) in that this library allows you to serve multiple Git repos from one directory by specifying the name of the repo as the first part of your URL. The original serves only one repo, unless I completely misunderstood what it's doing... which is possible.
+Turn a directory of Git repositories into a static file server and browse repositories, branches and commits in the browser. 
+
+This fork differs from the original [git-static](https://github.com/mbostock/git-static) in it serves multiple Git repos from one directory by specifying the name of the repo as the first part of your URL. The original serves only one repo, unless I completely misunderstood what it's doing... which is possible.
+
+This fork also includes a web server to browse the tree.
 
 ## Installation
 
