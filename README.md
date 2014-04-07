@@ -59,6 +59,8 @@ View all commits
 http://localhost:3000/repository-name/branch-name
 ````
 
+Clicking on a commit will assume that you have an `index.html` file and take you to that.
+
 ## Developing
 
 If you want to keep the server alive while you're editing it, use [nodemon](https://github.com/remy/nodemon) and include the jade files
