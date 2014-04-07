@@ -29,7 +29,9 @@ git push static master
 Now you can launch the server!
 
 ```bash
-node ~/Development/git-static-diffuse/examples/server --repositories ~/Development/git-static-diffuse/repositories
+node ~/Development/git-static-diffuse/gsd-server/app.js --repositories ~/Development/git-static-diffuse/repositories
 ```
 
 Go to <http://localhost:3000/repository/HEAD/path/to/file.html> to view a file from the source repository. You can replace `HEAD` with a specific commit version, short names and aliases for commits such as "0ad4156" or "HEAD~1", or even branch names.
+
+You can also navigate to any part of that path to view the tree.
