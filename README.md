@@ -31,6 +31,9 @@ git remote add static ~/Development/git-static-diffuse/repositories/repository
 git push static master
 ```
 
+
+## Starting the server
+
 Now you can launch the server!
 
 ```bash
