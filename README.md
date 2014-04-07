@@ -40,3 +40,21 @@ node ~/Development/git-static-diffuse/gsd-server/app.js --repositories ~/Develop
 Go to <http://localhost:3000/repository/HEAD/path/to/file.html> to view a file from the source repository. You can replace `HEAD` with a specific commit version, short names and aliases for commits such as "0ad4156" or "HEAD~1", or even branch names.
 
 You can also navigate to any part of that path to view the tree.
+
+View all repos
+
+````
+http://localhost:3000
+````
+
+View all branches
+
+````
+http://localhost:3000/repository-name
+````
+
+View all commits
+
+````
+http://localhost:3000/repository-name/branch-name
+````
