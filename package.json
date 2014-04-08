@@ -1,11 +1,16 @@
 {
   "name": "git-static-diffuse",
-  "version": "0.1.0",
+  "description": "Turn a directory of git directories into a static file server with browsable branches and commits.",
+  "version": "0.2.0",
   "author": "Michael Keller",
+  "bin": {
+    "moire": "bin/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/mhkeller/git-static-diffuse.git"
   },
+  "preferGlobal": true,
   "dependencies": {
     "mime": "1.2.x",
     "express": "3.0.x",

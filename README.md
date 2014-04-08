@@ -1,7 +1,7 @@
 Git Static Diffuse
 ====
 
-Turn a directory of Git repositories into a static file server and browse repositories, branches and commits in the browser. 
+Turn a directory of Git repositories into a static file server as well as browse and view repositories, branches and commits in the browser. 
 
 This fork differs from the original [git-static](https://github.com/mbostock/git-static) in it serves multiple Git repos from one directory by specifying the name of the repo as the first part of your URL. The original serves only one repo, unless I completely misunderstood what it's doing... which is possible.
 
@@ -9,35 +9,18 @@ This fork also includes a web server to browse the tree.
 
 ## Installation
 
-After running `npm install`, make a `repositories` directory to hold your projects:
+Install globally so you can access it from the command line
 
-```bash
-mkdir repositories
-```
-
-Each project will be an empty git repository inside this folder. For example:
-
+````bash
+npm install git-static-diffuse -g
 ````
-cd repositories
-mkdir repository
-git init --bare
-````
-
-Then, push from your source Git repository the files you want to serve:
-
-```bash
-cd ~/Development/other
-git remote add static ~/Development/git-static-diffuse/repositories/repository
-git push static master
-```
-
 
 ## Starting the server
 
-Now you can launch the server!
+`cd` into the folder that holds your git repositories and start the server with `moire`.
 
 ```bash
-node ~/Development/git-static-diffuse/gsd-server/app.js --repositories ~/Development/git-static-diffuse/repositories
+moire start
 ```
 
 Go to <http://localhost:3000/repository/HEAD/path/to/file.html> to view a file from the source repository. You can replace `HEAD` with a specific commit version, short names and aliases for commits such as `0ad4156` or `HEAD~1`, or even branch names.
@@ -69,7 +52,7 @@ Clicking on a commit will assume that you have an `index.html` file and take you
 If you want to keep the server alive while you're editing it, use [nodemon](https://github.com/remy/nodemon) and include the jade files
 
 ````
-nodemon gsd-server/app.js --repositories repositories -e js,jade,css
+nodemon bin/index.js start -e js,jade,css
 ````
 
 Also watch the [stylus](http://learnboost.github.io/stylus/) files
