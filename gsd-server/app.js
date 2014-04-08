@@ -17,8 +17,8 @@ var app = express();
 
 function startServer(reps, port_number){
   reps = reps || path.resolve('./');
-  console.log(reps)
-  gs.repositories(reps)
+  gs.repositories(reps);
+  
   // all environments
   app.set('port', port_number);
   app.set('views', path.join(__dirname, 'views'));
