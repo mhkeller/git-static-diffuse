@@ -52,11 +52,11 @@ Clicking on a commit will assume that you have an `index.html` file and take you
 If you want to keep the server alive while you're editing it, use [nodemon](https://github.com/remy/nodemon) and include the jade files
 
 ````
-nodemon bin/index.js start -e js,jade,css
+nodemon path/to/bin/index.js start -e js,jade,css
 ````
 
 Also watch the [stylus](http://learnboost.github.io/stylus/) files
 
 ````
-stylus -w gsd-server/public/stylesheets/
+stylus -w path/to/gsd-server/public/stylesheets/
 ````
