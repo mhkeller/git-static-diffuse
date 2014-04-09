@@ -1,7 +1,7 @@
 {
   "name": "git-static-diffuse",
   "description": "Turn a directory of git directories into a static file server with browsable branches and commits.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Michael Keller",
   "bin": {
     "moire": "bin/index.js"
