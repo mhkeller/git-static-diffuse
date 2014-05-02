@@ -4,8 +4,7 @@
  */
 
 var fs = require("fs"),
-		gs = require('../'),
-    jk = require('junk');
+		gs = require('../');
 
 var express = require('express');
 var http = require('http');
@@ -37,8 +36,15 @@ function startServer(reps, port_number){
   }
 
   app.get('/', function(req, res){
-    fs.readdir(gs.repositories(), function(err, folders){
-      folders = folders.filter(jk.not);
+    fs.readdir(gs.repositories(), function(err, files){
+      var folders = files.map(function(file) {
+        return path.join(gs.repositories(), file);
+      }).filter(function(file){
+        return fs.statSync(file).isDirectory();
+      }).map(function(folder){
+        // Clean up the name
+        return folder.replace(gs.repositories() + '/', '');
+      });
       res.render('index', { page_title: 'Repositories', repos: folders });
     });
   });
