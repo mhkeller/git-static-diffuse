@@ -2,7 +2,9 @@ extends layout
 
 block content
 	p.page-type Repository
-	h1= repo
+	h1
+		a(href="/") / 
+		= repo
 	p Available branches:
 	ul
 		each branch in branches
@@ -10,4 +12,4 @@ block content
 				a(href="/#{repo}/#{branch}")= branch
 				ul
 					li
-						a(href="/#{repo}/HEAD/index.html")= "latest"
+						a(href="/#{repo}/#{branch}/index.html")= "latest"

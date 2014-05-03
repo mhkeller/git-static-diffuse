@@ -44,26 +44,22 @@ exports.getSha = function(repository, revision, callback) {
   });
 };
 
-exports.getBranchCommits = function(repository, callback) {
-  child.exec("git for-each-ref refs/heads/ --sort=-authordate --format='%(objectname)\t%(refname:short)\t%(authordate:iso8601)\t%(authoremail)'", {cwd: repositories + '/' + repository}, function(error, stdout) {
+exports.getBranchCommits = function(repository, branch, callback) {
+  child.exec("git log " + branch, {cwd: repositories + '/' + repository}, function(error, stdout) {
     if (error) return callback(error);
-    callback(null, stdout.split("\n").map(function(line) {
-      console.log(line)
-      var fields = line.split("\t"),
-          sha = fields[0],
-          ref = fields[1],
-          date = new Date(fields[2]),
-          author = fields[3];
-      if (!shaRe.test(sha) || isNaN(date) || !emailRe.test(author)) return;
+    console.log(stdout)
+    // Split and filter for empty rows
+    var commits = stdout.trim().split("commit").filter(function(commit){ return commit });
+    commits = commits.map(function(commit){
+      var fields = commit.replace('\n\n','\n').split('\n').map(function(line){ return line.trim() }).filter(function(line){ return line });
       return {
-        sha: sha,
-        ref: ref,
-        date: date,
-        author: author.substring(1, author.length - 1)
-      };
-    }).filter(function(commit) {
-      return commit;
-    }));
+        sha: fields[0],
+        author: fields[1].split(' ')[1],
+        date: fields[2].split('Date:')[1].trim(),
+        message: fields[3]
+      }
+    })
+    callback(null, commits);
   });
 };
 

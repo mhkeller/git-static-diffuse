@@ -45,12 +45,14 @@ function startServer(reps, port_number){
         // Clean up the name
         return folder.replace(gs.repositories() + '/', '');
       });
+      console.log(folders)
       res.render('index', { page_title: 'Repositories', repos: folders });
     });
   });
 
   app.get('/:repo?', function(req, res){
     var repo = req.params.repo
+    console.log('here')
     gs.getBranches(repo, function(err, branches){
       res.render('repo', { page_title: repo, repo: repo, branches: branches });
     });
@@ -59,7 +61,7 @@ function startServer(reps, port_number){
   app.get('/:repo/:branch?', function(req, res){
     var repo = req.params.repo,
         branch = req.params.branch;
-    gs.getBranchCommits(repo, function(err, commits){
+    gs.getBranchCommits(repo, branch, function(err, commits){
       res.render('branch', { page_title: repo + ' - ' + branch, repo: repo, branch: branch, commits: commits });
     });
   });
