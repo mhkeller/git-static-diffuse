@@ -10,7 +10,7 @@ block content
 	ul.code
 		each commit in commits
 			li
-				a(href="/#{repo}/"+ commit.sha.substring(0,6) + "/index.html")= commit.message
+				a(href="/frame/#{repo}/#{branch}/"+ commit.sha.substring(0,6) + "/index.html")= commit.message
 				ul
 					li= new Date(commit.date).toLocaleString().replace(/ 20(\d{2})/,', \'$1 -').replace(/GMT-\d{4}.* /,'')
 					li= commit.sha.substring(0,6)
