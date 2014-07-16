@@ -1,0 +1,9 @@
+doctype html
+html
+	head
+		title= page_title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body(height="100%")
+		iframe.menu(src="/#{repo}/#{branch}/")
+	
+		iframe.file(src="/#{repo}/#{repoPath}")
