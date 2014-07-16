@@ -60,6 +60,17 @@ function startServer(reps, port_number){
     });
   });
 
+  app.get('/frame/:repo/:branch/:commit/:file?*', function(req, res){
+    var repo = req.params.repo,
+        branch = req.params.branch;
+        commit = req.params.commit;
+        file =  req.params.file;
+    gs.getBranchCommits(repo, branch, function(err, commits){
+      res.render('frame', { page_title: repo + ' - ' + branch, repo: repo, branch: branch, commit: commit, file: file, commits: commits });
+    });
+  });
+
+
   app.get('/:repo?', function(req, res){
     var repo = req.params.repo
     console.log('here')
@@ -75,6 +86,7 @@ function startServer(reps, port_number){
       res.render('branch', { page_title: repo + ' - ' + branch, repo: repo, branch: branch, commits: commits });
     });
   });
+
 
   app.get('/:repo/:branchOrBranch/:file?*', gs.route());
 
