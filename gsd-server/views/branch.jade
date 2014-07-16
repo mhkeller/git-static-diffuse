@@ -1,7 +1,7 @@
 extends layout
 
 block head
-	base(target="_parent")
+	base(target="_parent")		
 block content
 	p.page-type Repository-branch
 	h1
@@ -14,6 +14,6 @@ block content
 			li
 				a(href="/frame/#{repo}/#{branch}/"+ commit.sha.substring(0,6) + "/index.html")= commit.message
 				ul
-					li= new Date(commit.date).toLocaleString().replace(/ 20(\d{2})/,', \'$1 -').replace(/GMT-\d{4}.* /,'')
+					li= new Date(commit.date).toLocaleString().substring(0,21)
 					li= commit.sha.substring(0,6)
 					li= commit.author
