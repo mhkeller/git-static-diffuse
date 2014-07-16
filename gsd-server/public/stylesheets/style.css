@@ -25,21 +25,21 @@ h1 {
 }
 
 .menu {
-position: absolute;
-background-color: rgb(235,235,235);
-top: 0;
-left: 0;
-height: 100%;
-width: 300px;
-border: 0;
-border-right: 1px solid gray; 
+  position: absolute;
+  background-color: rgb(235,235,235);
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 300px;
+  border: 0;
+  border-right: 1px solid gray; 
 }
 
 .file {
-position: absolute;
-top: 0;
-left: 300px;
-border: 0;
-height: 100%;
-width: 100%; 
+  position: absolute;
+  top: 0;
+  left: 300px;
+  border: 0;
+  height: 100%;
+  width: 80%; 
 }
