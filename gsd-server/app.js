@@ -67,15 +67,14 @@ function startServer(reps, port_number){
         file =  req.params.file;
 
         if(commit === "index.html"){
-          path = branch+ '/' + 'index.html';
+          repoPath = branch+ '/' + 'index.html';
         }else
         {
-          path = commit + '/' + file;
+          repoPath = commit + '/' + file;
         }
-        console.log(path);
-
+        
     gs.getBranchCommits(repo, branch, function(err, commits){
-      res.render('frame', { page_title: repo + ' - ' + branch, repo: repo, branch: branch, path: path });
+      res.render('frame', { page_title: repo + ' - ' + branch, repo: repo, branch: branch, repoPath: repoPath });
     });
   });
 
