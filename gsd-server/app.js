@@ -14,13 +14,16 @@ var port;
 
 var app = express();
 
-function startServer(reps, port_number){
+function startServer(reps, port_number, views, assets){
   reps = reps || path.resolve('./');
+  views = views || path.join(__dirname, 'views');
+  assets = assets || path.join(__dirname, 'public');
+
   gs.repositories(reps);
   
   // all environments
   app.set('port', port_number);
-  app.set('views', path.join(__dirname, 'views'));
+  app.set('views', views);
   app.set('view engine', 'jade');
 
   app.use(function (req, res, next) {
@@ -36,8 +39,8 @@ function startServer(reps, port_number){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.static(path.join(__dirname, 'public')));
-  app.use(require('stylus').middleware(path.join(__dirname, 'public')));
+  app.use(express.static(assets));
+  app.use(require('stylus').middleware(assets));
   app.use(app.router);
 
   // development only
@@ -55,14 +58,12 @@ function startServer(reps, port_number){
         // Clean up the name
         return folder.replace(gs.repositories() + '/', '');
       });
-      console.log(folders)
       res.render('index', { page_title: 'Repositories', repos: folders });
     });
   });
 
   app.get('/:repo?', function(req, res){
-    var repo = req.params.repo
-    console.log('here')
+    var repo = req.params.repo;
     gs.getBranches(repo, function(err, branches){
       res.render('repo', { page_title: repo, repo: repo, branches: branches });
     });
