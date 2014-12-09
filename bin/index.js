@@ -14,17 +14,14 @@ var argv = optimist.usage("Usage: $0")
       default: 3000,
       describe: "http port"
     })
-    .options("views", {
-      describe: "custom view folder"
+    .options("config", {
+      describe: "config file for presentation"
     })
-    .options("assets", {
-      describe: "custom public assets folder"
-    })    
     .check(function(argv) {
       if (argv['help'] || argv['_'] != "start") throw "";
     })
     .argv;
 
-var gsd_server = require('../gsd-server/app.js');
+var gsd_server = require("../gsd-server/app.js");
 
-gsd_server.start(argv['repositories'], argv['port'], argv['views'], argv['assets']);
+gsd_server.start(argv['repositories'], argv['port'], argv['config']);

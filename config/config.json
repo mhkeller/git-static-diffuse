@@ -1,0 +1,5 @@
+{
+	"views": "./views",
+	"assets": "./public",
+	"engine": "jade"
+}

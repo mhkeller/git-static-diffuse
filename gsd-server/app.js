@@ -14,17 +14,17 @@ var port;
 
 var app = express();
 
-function startServer(reps, port_number, views, assets){
+function startServer(reps, port_number, config){
   reps = reps || path.resolve('./');
-  views = views || path.join(__dirname, 'views');
-  assets = assets || path.join(__dirname, 'public');
-
   gs.repositories(reps);
+  
+  var configPath = (config) ? path.resolve(config) : path.join(__dirname, "../config/config.json");
+  config = JSON.parse(fs.readFileSync(configPath, 'utf8'));  
   
   // all environments
   app.set('port', port_number);
-  app.set('views', views);
-  app.set('view engine', 'jade');
+  app.set('views', config.views);
+  app.set('view engine', config.engine);
 
   app.use(function (req, res, next) {
       if ('/robots.txt' == req.url) {
@@ -39,8 +39,8 @@ function startServer(reps, port_number, views, assets){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.static(assets));
-  app.use(require('stylus').middleware(assets));
+  app.use(express.static(config.assets));
+  app.use(require('stylus').middleware(config.assets));
   app.use(app.router);
 
   // development only
